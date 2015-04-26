@@ -9,6 +9,7 @@ Desktop.ini
 $RECYCLE.BIN/
 Library/ShaderCache/
 Library/metadata/
+*.meta
 # Windows Installer files
 *.cab
 *.msi
