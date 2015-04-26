@@ -8,6 +8,9 @@ public class Haddad2DController : MonoBehaviour {
     public float currentLife = 0f;
     public float movementSpeed = 10.0f;
 
+	public AudioSource somAgua;
+	public AudioSource somBuraco;
+
     public Texture2D lifeBarEmpty;
     public Texture2D lifeBarFull;
 
@@ -57,6 +60,8 @@ public class Haddad2DController : MonoBehaviour {
             {
                 this.transform.position = new Vector3(this.transform.position.x, -2.88f);
             }
+
+			if (Input.GetAxisRaw("Cancel") >0) Application.LoadLevel ("menu");
         }
 	}
 
@@ -68,10 +73,12 @@ public class Haddad2DController : MonoBehaviour {
         {
             case "Obstaculo":
                 value = -10;
+			somBuraco.Play();
                 break;
             case "Water":
                 value = 10;
                 Destroy(collider.gameObject);
+			somAgua.Play();
                 break;
             default:
                 value = 0;
@@ -82,7 +89,7 @@ public class Haddad2DController : MonoBehaviour {
 
         if (value > 0)
         {
-            if (this.currentLife + value > startLife)
+            if (this.currentLife + value > this.startLife)
                 this.currentLife = this.startLife;
             else
                 this.currentLife += value;
@@ -109,6 +116,7 @@ public class Haddad2DController : MonoBehaviour {
         
         if (this.dead)
         {
+			GameObject.Find ("musica").GetComponent<AudioSource>().Stop();
             Rect buttonRect = new Rect(Screen.width * 0.20f, Screen.height * 0.45f, Screen.width * 0.60f, Screen.height * 0.1f);
 
             if (GUI.Button(buttonRect, "Game Over! Clique aqui para iniciar novamente!"))
