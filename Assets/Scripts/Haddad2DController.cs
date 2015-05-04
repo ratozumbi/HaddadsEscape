@@ -5,6 +5,7 @@ public class Haddad2DController : MonoBehaviour {
    
     public bool dead;
     public float startLife;
+    public float ghostTime;
     public float currentLife = 0f;
     public float movementSpeed = 10.0f;
 
@@ -14,24 +15,20 @@ public class Haddad2DController : MonoBehaviour {
     public Texture2D lifeBarEmpty;
     public Texture2D lifeBarFull;
 
-    private Vector2 lifeBarSize;
-    private Vector2 lifeBarPosition;
     private float lifeBarCurrentPosition = 0;
 
     void Start() {
         this.startLife = 100f;
         this.currentLife = startLife;
-        this.lifeBarSize = new Vector2(300, 30);
-        this.lifeBarPosition = new Vector2(25, 25);
     }
 
     void OnGUI() 
     {
-        GUI.BeginGroup(new Rect(lifeBarPosition.x, lifeBarPosition.y, lifeBarSize.x, lifeBarSize.y));
-        GUI.Box(new Rect(0, 0, lifeBarSize.x, lifeBarSize.y), lifeBarEmpty, new GUIStyle() { stretchHeight = true, stretchWidth = true });
+        GUI.BeginGroup(new Rect(25, 25, 300, 30));
+        GUI.Box(new Rect(0, 0, 300, 30), lifeBarEmpty, new GUIStyle() { stretchHeight = true, stretchWidth = true });
 
-        GUI.BeginGroup(new Rect(0, 0, lifeBarSize.x * lifeBarCurrentPosition, lifeBarSize.y));
-        GUI.Box(new Rect(0, 0, lifeBarSize.x, lifeBarSize.y), lifeBarFull, new GUIStyle() { stretchHeight = true, stretchWidth = true });
+        GUI.BeginGroup(new Rect(0, 0, 250 * lifeBarCurrentPosition, 30));
+        GUI.Box(new Rect(0, 0, 250, 30), lifeBarFull, new GUIStyle() { stretchHeight = true, stretchWidth = true });
         GUI.EndGroup();
 
         GUI.EndGroup();
@@ -39,9 +36,26 @@ public class Haddad2DController : MonoBehaviour {
         this.GameOver();
     }
 
-	void FixedUpdate () {
-
+    void Update()
+    {
         this.UpdateLifeBar();
+
+        if (this.ghostTime > 0)
+        {
+            this.ghostTime -= Time.deltaTime;
+            this.gameObject.layer = LayerMask.NameToLayer("GhostCharacter");
+            this.GetComponent<Renderer>().enabled = !this.GetComponent<Renderer>().enabled;
+        }
+
+        if (ghostTime < 0)
+        {
+            ghostTime = 0;
+            this.GetComponent<Renderer>().enabled = true;
+            this.gameObject.layer = LayerMask.NameToLayer("Character");
+        }
+    }
+
+	void FixedUpdate () {
 
         if (!dead)
         {
@@ -61,7 +75,7 @@ public class Haddad2DController : MonoBehaviour {
                 this.transform.position = new Vector3(this.transform.position.x, -2.88f);
             }
 
-			if (Input.GetAxisRaw("Cancel") >0) Application.LoadLevel ("menu");
+			if (Input.GetAxisRaw("Cancel") > 0) Application.LoadLevel ("menu");
         }
 	}
 
@@ -73,19 +87,18 @@ public class Haddad2DController : MonoBehaviour {
         {
             case "Obstaculo":
                 value = -10;
-			somBuraco.Play();
+			    this.somBuraco.Play();
+                this.ghostTime = 1;
                 break;
             case "Water":
                 value = 10;
                 Destroy(collider.gameObject);
-			somAgua.Play();
+			    this.somAgua.Play();
                 break;
             default:
                 value = 0;
                 break;
         }
-
-        Debug.Log(string.Format("Antes - Current: {0}; Value: {1}", this.currentLife, value));
 
         if (value > 0)
         {
@@ -99,8 +112,6 @@ public class Haddad2DController : MonoBehaviour {
             if(this.currentLife > 0)
                 this.currentLife += value;
         }
-
-        Debug.Log(string.Format("Depois - Current: {0}; Value: {1}", this.currentLife, value));
     }
 
     void UpdateLifeBar()
