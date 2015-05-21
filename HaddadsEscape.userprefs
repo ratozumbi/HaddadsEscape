@@ -1,8 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MainMenu.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Haddad2DController.cs">
     <Files>
-      <File FileName="Assets\Scripts\MainMenu.cs" Line="22" Column="23" />
+      <File FileName="Assets\Scripts\TouchScreen.cs" Line="7" Column="1" />
+      <File FileName="Assets\Scripts\MainMenu.cs" Line="26" Column="1" />
+      <File FileName="Assets\Scripts\Haddad2DController.cs" Line="69" Column="57" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

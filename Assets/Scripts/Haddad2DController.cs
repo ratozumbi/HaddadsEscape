@@ -9,6 +9,8 @@ public class Haddad2DController : MonoBehaviour {
     public float currentLife = 0f;
     public float movementSpeed = 10.0f;
 
+	public static float direction;
+
 	public AudioSource somAgua;
 	public AudioSource somBuraco;
 
@@ -16,6 +18,10 @@ public class Haddad2DController : MonoBehaviour {
     public Texture2D lifeBarFull;
 
     private float lifeBarCurrentPosition = 0;
+
+	public static void ChangeDirection(){
+		direction = direction >= 0 ? -1:1;
+	}
 
     void Start() {
         this.startLife = 100f;
@@ -59,11 +65,13 @@ public class Haddad2DController : MonoBehaviour {
 
         if (!dead)
         {
-            float direction = Input.GetAxisRaw("Vertical");
+			if (Input.GetAxisRaw("Vertical") > 0 && direction < 0 ||
+			    Input.GetAxisRaw("Vertical") < 0 && direction > 0) ChangeDirection() ;
             Rigidbody2D rigidBody2D = this.transform.GetComponent<Rigidbody2D>();
 
             Vector2 newVelocity = rigidBody2D.velocity;
             newVelocity.x = this.movementSpeed;
+			newVelocity.y = 0;
             rigidBody2D.velocity = newVelocity;
 
             if (direction > 0)

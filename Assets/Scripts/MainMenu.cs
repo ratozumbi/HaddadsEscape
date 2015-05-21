@@ -4,7 +4,7 @@ using System.Collections;
 public class MainMenu : MonoBehaviour {
 
 	public Texture bgImage;
-
+	
 	// Use this for initialization
 	void Start () {
 	
