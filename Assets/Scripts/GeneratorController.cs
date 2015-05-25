@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class GeneratorController : MonoBehaviour {
 
+    public bool started = false;
+
     //Criação dos backgrounds
     public GameObject[] availableRooms;
     public List<GameObject> currentRooms;
@@ -12,11 +14,11 @@ public class GeneratorController : MonoBehaviour {
     public GameObject[] availableObjects;
     public List<GameObject> objects;
 
-    public float objectsYup = -1.38f;
-    public float objectsYdown = -2.63f;
+    private float objectsYup = -1.38f;
+    private float objectsYdown = -2.63f;
 
-    public float objectsMinDistance = 6.0f;
-    public float objectsMaxDistance = 12.0f;
+    public float objectsMinDistance;
+    public float objectsMaxDistance;
 
     private float screenWidthInPoints;
 
@@ -27,8 +29,11 @@ public class GeneratorController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        GenerateRoomIfRequired();
-        GenerateObjectsIfRequired();
+        if (started)
+        {
+            GenerateRoomIfRequired();
+            GenerateObjectsIfRequired();
+        }
     }
 
     void AddRoom(float farhtestRoomEndX)
