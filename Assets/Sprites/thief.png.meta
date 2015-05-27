@@ -1,12 +1,14 @@
 fileFormatVersion: 2
-guid: 0c18cbbbced21aa47a51ddb1d052b10d
-timeCreated: 1432696178
+guid: d293e5f032830844baf12e72bba34b76
+timeCreated: 1432692483
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: haddad_2d_0
-    21300002: haddad_2d_1
-    21300004: haddad_2d_2
+    21300000: Thief_0
+    21300002: Thief_1
+    21300004: thief_0
+    21300006: thief_1
+    21300008: thief_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -52,33 +54,33 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: haddad_2d_0
+    - name: thief_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 320
-        height: 310
+        x: 59
+        y: 3
+        width: 135
+        height: 281
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: haddad_2d_1
+    - name: thief_1
       rect:
         serializedVersion: 2
-        x: 322
-        y: 0
-        width: 320
-        height: 310
+        x: 299
+        y: 14
+        width: 173
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: haddad_2d_2
+    - name: thief_2
       rect:
         serializedVersion: 2
-        x: 642
-        y: 0
-        width: 320
-        height: 310
+        x: 507
+        y: 27
+        width: 232
+        height: 244
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

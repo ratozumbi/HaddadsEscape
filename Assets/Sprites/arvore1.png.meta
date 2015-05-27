@@ -1,12 +1,15 @@
 fileFormatVersion: 2
-guid: 0c18cbbbced21aa47a51ddb1d052b10d
-timeCreated: 1432696178
+guid: 70f3195dd51408643a47bc00ec20e520
+timeCreated: 1432690667
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: haddad_2d_0
-    21300002: haddad_2d_1
-    21300004: haddad_2d_2
+    21300000: arvore1_0
+    21300002: arvore1_1
+    21300004: arvore1_2
+    21300006: arvore1_3
+    21300008: arvore1_4
+    21300010: arvore1_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -52,35 +55,65 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: haddad_2d_0
+    - name: arvore1_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 320
-        height: 310
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 198
+        y: 281
+        width: 47
+        height: 113
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: haddad_2d_1
+    - name: arvore1_1
       rect:
         serializedVersion: 2
-        x: 322
-        y: 0
-        width: 320
-        height: 310
+        x: 251
+        y: 279
+        width: 84
+        height: 198
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: haddad_2d_2
+    - name: arvore1_2
       rect:
         serializedVersion: 2
-        x: 642
-        y: 0
-        width: 320
-        height: 310
+        x: 346
+        y: 149
+        width: 261
+        height: 329
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: arvore1_3
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 5
+        width: 182
+        height: 246
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 4, w: 0}
+    - name: arvore1_4
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 176
+        width: 113
+        height: 79
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: arvore1_5
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 3
+        width: 173
+        height: 104
+      alignment: 7
+      pivot: {x: .5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

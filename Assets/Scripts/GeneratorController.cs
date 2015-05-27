@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class GeneratorController : MonoBehaviour {
 
     public bool started = false;
-
+    public int count = 0;
     //Criação dos backgrounds
     public GameObject[] availableRooms;
     public List<GameObject> currentRooms;
@@ -38,6 +38,7 @@ public class GeneratorController : MonoBehaviour {
 
     void AddRoom(float farhtestRoomEndX)
     {
+        count++;
         int randomRoomIndex = Random.Range(0, availableRooms.Length);
         GameObject room = (GameObject)Instantiate(availableRooms[randomRoomIndex]);
         float roomWidth = room.transform.FindChild("ground_object_down").localScale.x;
@@ -50,13 +51,19 @@ public class GeneratorController : MonoBehaviour {
 
     void AddObject(float lastObjectX)
     {
+        float randomY = 0;
         int randomIndex = Random.Range(0, availableObjects.Length);
-
-        GameObject obj = (GameObject)Instantiate(availableObjects[randomIndex]);
-
         float objectPositionX = lastObjectX + Random.Range(objectsMinDistance, objectsMaxDistance);
-        float randomY = Random.Range(0, 2) == 1 ? objectsYdown : objectsYup;
         
+        GameObject obj = (GameObject)Instantiate(availableObjects[randomIndex]);
+        
+        if (obj.name.Contains("obstaculo_arvore3"))
+            randomY = -1.69f;
+        else if (obj.name.Contains("obstaculo_arvore1") || obj.name.Contains("obstaculo_arvore2"))
+            randomY = Random.Range(0, 2) == 1 ? -3.05f : -1.82f;
+        else
+            randomY = Random.Range(0, 2) == 1 ? objectsYdown : objectsYup;
+
         obj.transform.position = new Vector3(objectPositionX, randomY, 0);
         objects.Add(obj);
     }

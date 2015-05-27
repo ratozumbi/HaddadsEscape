@@ -38,6 +38,7 @@ public class Haddad2DController : MonoBehaviour
     private Text distanceCountText;
     private Text secondsToStartText;
 
+    private GameObject thief;
     private GameObject gameOverPanel;
     private GameObject highScoreItem;
     private GameObject parallaxCamera;
@@ -66,6 +67,7 @@ public class Haddad2DController : MonoBehaviour
         this.playSoundEffects = Convert.ToBoolean(PlayerPrefs.GetInt("PlaySoundEffects", 1));
         this.playBackgroundMusic = Convert.ToBoolean(PlayerPrefs.GetInt("PlayBackgroundMusic", 1));
 
+        this.thief = GameObject.Find("Thief");
         this.newScoreObject = GameObject.Find("NewScore");
         this.gameOverPanel = GameObject.Find("GameOver");
         this.pauseMenuPanel = GameObject.Find("PauseMenu");
@@ -121,6 +123,8 @@ public class Haddad2DController : MonoBehaviour
                 secondsToStartText.gameObject.SetActive(false);
                 this.parallaxCamera.SendMessage("StartMove");
                 this.transform.GetComponent<GeneratorController>().started = true;
+                this.GetComponent<Animator>().SetBool("Running", true);
+                this.thief.GetComponent<Animator>().SetBool("Running", true);
             }
 
             if (!dead)
@@ -138,9 +142,15 @@ public class Haddad2DController : MonoBehaviour
                 float direction = Input.GetAxisRaw("Vertical");
 
                 if (direction > 0)
-                    this.transform.position = new Vector3(this.transform.position.x, -1.75f);
+                {
+                    this.transform.position = new Vector3(this.transform.position.x, -0.83f);
+                    this.thief.transform.position = new Vector3(this.thief.transform.position.x, -0.83f);
+                }
                 else if (direction < 0)
-                    this.transform.position = new Vector3(this.transform.position.x, -2.88f);
+                {
+                    this.transform.position = new Vector3(this.transform.position.x, -1.98f);
+                    this.thief.transform.position = new Vector3(this.thief.transform.position.x, -1.91f);
+                }
             }
             else
                 this.UpdateGameOver();
@@ -242,7 +252,11 @@ public class Haddad2DController : MonoBehaviour
     {
         //Para o personagem
         Rigidbody2D rigidBody2D = this.transform.GetComponent<Rigidbody2D>();
-        rigidBody2D.velocity = new Vector2(0, 0); ;
+        rigidBody2D.velocity = new Vector2(0, 0);
+        this.GetComponent<Animator>().SetBool("Running", false);
+
+        //Para o bandidinho
+        this.thief.GetComponent<Animator>().SetBool("Running", false);
 
         //Para a música de fundo
         if(this.backgroundMusic.isPlaying)

@@ -421,7 +421,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 92015952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.96000004, y: -2.88000011, z: 0}
+  m_LocalPosition: {x: -1.96000004, y: -1.98000002, z: 0}
   m_LocalScale: {x: .600000024, y: .600000024, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -437,7 +437,7 @@ Rigidbody2D:
   m_AngularDrag: .0500000007
   m_GravityScale: 1
   m_FixedAngle: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -469,9 +469,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -.62829411, y: .627270937}
+  m_Offset: {x: 1.02893472, y: -1.02104855}
   serializedVersion: 2
-  m_Size: {x: 1.25658989, y: 1.25454187}
+  m_Size: {x: 1.18531179, y: 1.0585252}
 --- !u!114 &92015959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,6 +484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   started: 0
+  count: 0
   availableRooms:
   - {fileID: 147712, guid: 448f0bcf66f45ee4b92e00455cae15c1, type: 2}
   currentRooms:
@@ -492,6 +493,9 @@ MonoBehaviour:
   - {fileID: 110384, guid: 4a06e83032d373d498600cb356e67825, type: 2}
   - {fileID: 179854, guid: 3052affb6a1030143ba45528f85d4180, type: 2}
   - {fileID: 114476, guid: 816c95f02b6ca2340a8b51218ea5921e, type: 2}
+  - {fileID: 159218, guid: bce33bf0d9309754e8078a4f4ef782dd, type: 2}
+  - {fileID: 173650, guid: 9da748520d1ca9347978f1fe4b33849f, type: 2}
+  - {fileID: 141646, guid: 42f5cbc40d2e2b244a5b925fdb823394, type: 2}
   objects: []
   objectsMinDistance: 2
   objectsMaxDistance: 4
@@ -1663,6 +1667,7 @@ Transform:
   - {fileID: 448017867}
   - {fileID: 1882652475}
   - {fileID: 1730189342}
+  - {fileID: 1442585476}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!114 &660250446
@@ -2472,6 +2477,78 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1436827191}
+--- !u!1 &1442585473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1442585476}
+  - 212: {fileID: 1442585475}
+  - 95: {fileID: 1442585474}
+  m_Layer: 0
+  m_Name: Thief
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!95 &1442585474
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1442585473}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e0f0a722a1a37f847826bedbf382855b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 1
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!212 &1442585475
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1442585473}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -422422419
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300004, guid: d293e5f032830844baf12e72bba34b76, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!4 &1442585476
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1442585473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.92999983, y: -1.90999997, z: 10}
+  m_LocalScale: {x: -.747656107, y: .679687858, z: 1}
+  m_Children: []
+  m_Father: {fileID: 660250445}
+  m_RootOrder: 4
 --- !u!1 &1475740871
 GameObject:
   m_ObjectHideFlags: 0
