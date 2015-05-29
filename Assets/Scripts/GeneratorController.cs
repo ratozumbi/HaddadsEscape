@@ -5,27 +5,49 @@ using System.Collections.Generic;
 public class GeneratorController : MonoBehaviour {
 
     public bool started = false;
-    public int count = 0;
+
+    public float objectsMinDistance;
+    public float objectsMaxDistance;
+
     //Criação dos backgrounds
     public GameObject[] availableRooms;
     public List<GameObject> currentRooms;
 
     //Criação dos objetos de interação
+    public GameObject water;
     public GameObject[] availableObjects;
     public List<GameObject> objects;
 
+    private int countObject = 0;
+    private int objectsToWater = 0;
     private float objectsYup = -1.38f;
     private float objectsYdown = -2.63f;
-
-    public float objectsMinDistance;
-    public float objectsMaxDistance;
-
     private float screenWidthInPoints;
 
-	void Start () {
+	void Start () 
+    {
         float height = 2.0f * Camera.main.orthographicSize;
         screenWidthInPoints = height * Camera.main.aspect;
+
+        this.objectsToWater = this.SetDifficult();
 	}
+
+    int SetDifficult()
+    {
+        int difficultLevel = PlayerPrefs.GetInt("Difficult", 2);
+
+        switch (difficultLevel)
+        {
+            case 1:
+                return 8;
+            case 2:
+                return 10;
+            case 3:
+                return 16;
+            default:
+                return 10;
+        }
+    }
 
     void FixedUpdate()
     {
@@ -38,7 +60,6 @@ public class GeneratorController : MonoBehaviour {
 
     void AddRoom(float farhtestRoomEndX)
     {
-        count++;
         int randomRoomIndex = Random.Range(0, availableRooms.Length);
         GameObject room = (GameObject)Instantiate(availableRooms[randomRoomIndex]);
         float roomWidth = room.transform.FindChild("ground_object_down").localScale.x;
@@ -51,11 +72,18 @@ public class GeneratorController : MonoBehaviour {
 
     void AddObject(float lastObjectX)
     {
+        GameObject obj;
         float randomY = 0;
         int randomIndex = Random.Range(0, availableObjects.Length);
         float objectPositionX = lastObjectX + Random.Range(objectsMinDistance, objectsMaxDistance);
-        
-        GameObject obj = (GameObject)Instantiate(availableObjects[randomIndex]);
+
+        if (countObject == objectsToWater)
+        {
+            countObject = 0;
+            obj = (GameObject)Instantiate(water);
+        }
+        else
+            obj = (GameObject)Instantiate(availableObjects[randomIndex]);
         
         if (obj.name.Contains("obstaculo_arvore3"))
             randomY = -1.69f;
@@ -66,6 +94,7 @@ public class GeneratorController : MonoBehaviour {
 
         obj.transform.position = new Vector3(objectPositionX, randomY, 0);
         objects.Add(obj);
+        countObject++;
     }
 
     void GenerateRoomIfRequired()

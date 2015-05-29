@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\GeneratorController.cs" />
      <Compile Include="Assets\Scripts\Haddad2DController.cs" />
+     <Compile Include="Assets\Scripts\IntroController.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\ParallaxScript.cs" />
  <Reference Include="UnityEngine.UI">

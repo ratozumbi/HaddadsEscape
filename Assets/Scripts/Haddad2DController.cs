@@ -12,6 +12,7 @@ public class Haddad2DController : MonoBehaviour
     #region Atributos
 
     public bool dead;
+    public float startLife;
     public float currentLife;
     public float movementSpeed;
     public float secondsToStart;
@@ -30,13 +31,13 @@ public class Haddad2DController : MonoBehaviour
     private bool playBackgroundMusic;
 
     private float ghostTime;
-    private float startLife;
     private float newHighScoreTime;
     private float distanceSecondCount;
     
     private Text coinsCountText;
     private Text distanceCountText;
     private Text secondsToStartText;
+    private Text secondsToStartTextShadow;
 
     private GameObject thief;
     private GameObject gameOverPanel;
@@ -56,11 +57,12 @@ public class Haddad2DController : MonoBehaviour
     void Start() {
 
         //Limpa os highScores atuais
-        //PlayerPrefs.SetString("HighScores", string.Empty); 
+        //PlayerPrefs.SetString("HighScores", string.Empty);
+        //PlayerPrefs.Save();
 
         this.secondsToStart = 4;
         this.startLife = 100f;
-        this.movementSpeed = 8.0f;
+        this.movementSpeed = this.SetDifficult();
         this.currentLife = startLife;
         this.highScoreCanvasItem = new List<GameObject>();
 
@@ -75,6 +77,7 @@ public class Haddad2DController : MonoBehaviour
         this.coinsCountText = GameObject.Find("CoinQuantity").GetComponent<Text>();
         this.distanceCountText = GameObject.Find("DistanceQuantity").GetComponent<Text>();
         this.secondsToStartText = GameObject.Find("SecondsToStartText").GetComponent<Text>();
+        this.secondsToStartTextShadow = GameObject.Find("SecondsToStartTextShadow").GetComponent<Text>();
         this.backgroundMusic = GameObject.Find("musica").GetComponent<AudioSource>();
 
         GameObject.Find("PauseCheckEffects").GetComponent<Toggle>().isOn = this.playSoundEffects;
@@ -101,6 +104,23 @@ public class Haddad2DController : MonoBehaviour
             this.backgroundMusic.Stop();
     }
 
+    float SetDifficult()
+    {
+        int difficultLevel = PlayerPrefs.GetInt("Difficult", 2);
+
+        switch (difficultLevel)
+        {
+            case 1:
+                return 6.0f;
+            case 2:
+                return 8.0f;
+            case 3:
+                return 10.0f;
+            default:
+                return 8.0f;
+        }
+    }
+
     void Update()
     {
         this.UpdateGhostTime();
@@ -111,9 +131,15 @@ public class Haddad2DController : MonoBehaviour
         this.secondsToStart -= Time.deltaTime * 1;
 
         if (this.secondsToStart >= 1)
+        {
             secondsToStartText.text = ((int)this.secondsToStart).ToString();
+            secondsToStartTextShadow.text = secondsToStartText.text;
+        }
         else
-            secondsToStartText.text = "Pedala!!";
+        {
+            secondsToStartText.text = "P e d a l a ! !";
+            secondsToStartTextShadow.text = secondsToStartText.text;
+        }
 
         if (secondsToStart < 0)
         {
@@ -121,6 +147,8 @@ public class Haddad2DController : MonoBehaviour
             {
                 started = true;
                 secondsToStartText.gameObject.SetActive(false);
+                secondsToStartTextShadow.gameObject.SetActive(false);
+
                 this.parallaxCamera.SendMessage("StartMove");
                 this.transform.GetComponent<GeneratorController>().started = true;
                 this.GetComponent<Animator>().SetBool("Running", true);
@@ -406,15 +434,18 @@ public class Haddad2DController : MonoBehaviour
 
     public void Pause()
     {
-        if (Time.timeScale == 0)
+        if (!this.dead)
         {
-            Time.timeScale = 1;
-            this.pauseMenuPanel.SetActive(false);
-        }
-        else
-        {
-            Time.timeScale = 0;
-            this.pauseMenuPanel.SetActive(true);
+            if (Time.timeScale == 0)
+            {
+                Time.timeScale = 1;
+                this.pauseMenuPanel.SetActive(false);
+            }
+            else
+            {
+                Time.timeScale = 0;
+                this.pauseMenuPanel.SetActive(true);
+            }
         }
     }
 
@@ -425,7 +456,7 @@ public class Haddad2DController : MonoBehaviour
 
     public void Exit()
     {
-        Application.Quit();
+        Application.LoadLevel("Intro");
     }
 
     public void SoundEffects()
