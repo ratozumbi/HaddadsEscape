@@ -59,7 +59,6 @@ public class Haddad2DController : MonoBehaviour
         //Limpa os highScores atuais
         //PlayerPrefs.SetString("HighScores", string.Empty);
         //PlayerPrefs.Save();
-
         this.secondsToStart = 4;
         this.startLife = 100f;
         this.movementSpeed = this.SetDifficult();
@@ -123,11 +122,6 @@ public class Haddad2DController : MonoBehaviour
 
     void Update()
     {
-        this.UpdateGhostTime();
-    }
-
-	void FixedUpdate () 
-    {
         this.secondsToStart -= Time.deltaTime * 1;
 
         if (this.secondsToStart >= 1)
@@ -140,7 +134,12 @@ public class Haddad2DController : MonoBehaviour
             secondsToStartText.text = "P e d a l a ! !";
             secondsToStartTextShadow.text = secondsToStartText.text;
         }
+        
+        this.UpdateGhostTime();
+    }
 
+	void FixedUpdate () 
+    {
         if (secondsToStart < 0)
         {
             if (!started)
@@ -451,11 +450,13 @@ public class Haddad2DController : MonoBehaviour
 
     public void Restart()
     {
+        Time.timeScale = 1;
         Application.LoadLevel("cena01_2d");
     }
 
     public void Exit()
     {
+        Time.timeScale = 1;
         Application.LoadLevel("Intro");
     }
 
