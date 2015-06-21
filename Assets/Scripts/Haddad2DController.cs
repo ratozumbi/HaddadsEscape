@@ -23,12 +23,14 @@ public class Haddad2DController : MonoBehaviour
 
     private uint coins;
     private uint distance;
+
+	private int touchDirection;
     
     private bool started;
     private bool newScore;
     private bool scoreAdded;
     private bool playSoundEffects;
-    private bool playBackgroundMusic;
+	private bool playBackgroundMusic;
 
     private float ghostTime;
     private float newHighScoreTime;
@@ -39,8 +41,9 @@ public class Haddad2DController : MonoBehaviour
     private Text secondsToStartText;
     private Text secondsToStartTextShadow;
 
-    private GameObject thief;
-    private GameObject gameOverPanel;
+	private GameObject thief;
+	private GameObject btSwitch;
+	private GameObject gameOverPanel;
     private GameObject highScoreItem;
     private GameObject parallaxCamera;
     private GameObject pauseMenuPanel;
@@ -69,6 +72,7 @@ public class Haddad2DController : MonoBehaviour
         this.playBackgroundMusic = Convert.ToBoolean(PlayerPrefs.GetInt("PlayBackgroundMusic", 1));
 
         this.thief = GameObject.Find("Thief");
+		this.btSwitch = GameObject.Find("switch");
         this.newScoreObject = GameObject.Find("NewScore");
         this.gameOverPanel = GameObject.Find("GameOver");
         this.pauseMenuPanel = GameObject.Find("PauseMenu");
@@ -78,6 +82,12 @@ public class Haddad2DController : MonoBehaviour
         this.secondsToStartText = GameObject.Find("SecondsToStartText").GetComponent<Text>();
         this.secondsToStartTextShadow = GameObject.Find("SecondsToStartTextShadow").GetComponent<Text>();
         this.backgroundMusic = GameObject.Find("musica").GetComponent<AudioSource>();
+
+		#if UNITY_ANDROID
+			btSwitch.SetActive(true);
+		#else
+			btSwitch.SetActive(false);
+		#endif
 
         GameObject.Find("PauseCheckEffects").GetComponent<Toggle>().isOn = this.playSoundEffects;
         GameObject.Find("PauseBackgroundMusic").GetComponent<Toggle>().isOn = this.playBackgroundMusic;
@@ -165,8 +175,13 @@ public class Haddad2DController : MonoBehaviour
                 Vector2 newVelocity = rigidBody2D.velocity;
                 newVelocity.x = this.movementSpeed;
                 rigidBody2D.velocity = newVelocity;
+				float direction;
+				#if UNITY_ANDROID
+					direction = getTouchDirection();
+				#else
+					direction = Input.GetAxisRaw("Vertical");
+				#endif
 
-                float direction = Input.GetAxisRaw("Vertical");
 
                 if (direction > 0)
                 {
@@ -183,6 +198,14 @@ public class Haddad2DController : MonoBehaviour
                 this.UpdateGameOver();
         }
 	}
+	int getTouchDirection(){
+		return touchDirection;
+	}
+
+	public void setTouchDirection(){
+		touchDirection = touchDirection > 0 ? -1 : 1;
+	}
+
 
     /// <summary>
     /// Atualiza a barra de vida do personagem.
@@ -303,6 +326,9 @@ public class Haddad2DController : MonoBehaviour
 
         //Exibe todas as informações de fim de jogo
         this.gameOverPanel.SetActive(true);
+
+		//btn para android
+		btSwitch.SetActive(false);
     }
 
     /// <summary>
@@ -439,11 +465,15 @@ public class Haddad2DController : MonoBehaviour
             {
                 Time.timeScale = 1;
                 this.pauseMenuPanel.SetActive(false);
+				#if UNITY_ANDROID
+					btSwitch.SetActive(true);
+				#endif
             }
             else
             {
                 Time.timeScale = 0;
                 this.pauseMenuPanel.SetActive(true);
+				btSwitch.SetActive(false);
             }
         }
     }

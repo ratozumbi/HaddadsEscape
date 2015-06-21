@@ -1,8 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\vr2\Assets\Cardboard\Scripts\CardboardHead.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Haddad2DController.cs">
     <Files>
-      <File FileName="..\vr2\Assets\Cardboard\Scripts\CardboardHead.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Haddad2DController.cs" Line="470" Column="11" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
